@@ -1,22 +1,32 @@
 class ContactController {
-  index() {
+  index(request, response) {
     // List all contacts
+
+    response.send('Get Contacts');
   }
 
-  show() {
+  show(request, response) {
     // Get one specific contact
+
+    response.send('Show Contact');
   }
 
-  store() {
+  store(request, response) {
     // Create a new contact
+
+    response.send('Store New Contact');
   }
 
-  update() {
+  update(request, response) {
     // Update an existing contact
+
+    response.send('Update Contact');
   }
 
-  delete() {
+  delete(request, response) {
     // Delete a contact
+
+    response.send('Delete Contact');
   }
 }
 
