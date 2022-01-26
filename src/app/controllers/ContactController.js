@@ -18,7 +18,7 @@ class ContactController {
       return response.json(contact);
     }
 
-    response.status(400).json({ error: 'contact not found' });
+    response.status(404).json({ error: 'contact not found' });
   }
 
   store(request, response) {
@@ -33,10 +33,19 @@ class ContactController {
     response.send('Update Contact');
   }
 
-  delete(request, response) {
+  async delete(request, response) {
     // Delete a contact
+    const { id } = request.params;
 
-    response.send('Delete Contact');
+    const contact = await ContactRepository.findById(id);
+
+    if (contact) {
+      await ContactRepository.deleteById(id);
+
+      return response.json({ ok: true });
+    }
+
+    response.status(404).json({ error: 'contact not found' });
   }
 }
 
