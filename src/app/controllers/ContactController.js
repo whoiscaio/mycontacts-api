@@ -45,10 +45,13 @@ class ContactController {
     response.sendStatus(204);
   }
 
-  update(request, response) {
+  async update(request, response) {
     // Update an existing contact
+    const { id } = request.params;
 
-    response.send('Update Contact');
+    await ContactRepository.update(id, request.body);
+
+    response.sendStatus(204);
   }
 
   async delete(request, response) {
