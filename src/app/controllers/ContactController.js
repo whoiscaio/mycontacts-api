@@ -10,8 +10,15 @@ class ContactController {
 
   show(request, response) {
     // Get one specific contact
+    const { id } = request.params;
 
-    response.send('Show Contact');
+    const contact = ContactRepository.findById(id);
+
+    if (contact) {
+      return response.json(contact);
+    }
+
+    response.status(400).json({ error: 'contact not found' });
   }
 
   store(request, response) {

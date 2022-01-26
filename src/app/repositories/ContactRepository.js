@@ -26,6 +26,12 @@ class ContactRepository {
   findAll() {
     return contacts;
   }
+
+  findById(id) {
+    const myContact = contacts.find((contact) => contact.id === id);
+
+    return myContact;
+  }
 }
 
 module.exports = new ContactRepository();
