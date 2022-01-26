@@ -30,18 +30,15 @@ class ContactRepository {
   }
 
   findById(id) {
-    const myContact = contacts.find((contact) => contact.id === id);
-
     return new Promise((resolve) => {
-      resolve(myContact);
+      resolve(contacts.find((contact) => contact.id === id));
     });
   }
 
   deleteById(id) {
-    contacts = contacts.filter((contact) => contact.id !== id);
-
     return new Promise((resolve) => {
-      resolve({ ok: true });
+      contacts = contacts.filter((contact) => contact.id !== id);
+      resolve();
     });
   }
 }

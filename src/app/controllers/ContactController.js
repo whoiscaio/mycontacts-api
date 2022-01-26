@@ -42,7 +42,7 @@ class ContactController {
     if (contact) {
       await ContactRepository.deleteById(id);
 
-      return response.json({ ok: true });
+      return response.sendStatus(204);
     }
 
     response.status(404).json({ error: 'contact not found' });
