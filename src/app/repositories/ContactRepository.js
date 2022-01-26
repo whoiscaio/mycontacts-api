@@ -35,9 +35,36 @@ class ContactRepository {
     });
   }
 
+  findByEmail(email) {
+    return new Promise((resolve) => {
+      resolve(
+        contacts.find((contact) => contact.email === email),
+      );
+    });
+  }
+
+  findByPhone(phone) {
+    return new Promise((resolve) => {
+      resolve(
+        contacts.find((contact) => contact.phone === phone),
+      );
+    });
+  }
+
   deleteById(id) {
     return new Promise((resolve) => {
       contacts = contacts.filter((contact) => contact.id !== id);
+      resolve();
+    });
+  }
+
+  create(body) {
+    return new Promise((resolve) => {
+      contacts.push({
+        ...body,
+        id: uuid(),
+      });
+
       resolve();
     });
   }

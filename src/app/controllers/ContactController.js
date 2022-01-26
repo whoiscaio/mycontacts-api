@@ -21,10 +21,28 @@ class ContactController {
     response.status(404).json({ error: 'contact not found' });
   }
 
-  store(request, response) {
+  async store(request, response) {
     // Create a new contact
+    const {
+      name, email, phone, category_id: categoryId,
+    } = request.body;
 
-    response.send('Store New Contact');
+    const emailAlreadyExists = await ContactRepository.findByEmail(email);
+    const phoneAlreadyExists = await ContactRepository.findByPhone(phone);
+
+    if (emailAlreadyExists) {
+      return response.status(400).json({ error: 'taken', taken: 'email' });
+    }
+
+    if (phoneAlreadyExists) {
+      return response.status(400).json({ error: 'taken', taken: 'phone' });
+    }
+
+    await ContactRepository.create({
+      name, email, phone, categoryId,
+    });
+
+    response.sendStatus(204);
   }
 
   update(request, response) {
