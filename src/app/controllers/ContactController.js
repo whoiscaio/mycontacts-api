@@ -14,11 +14,11 @@ class ContactController {
 
     const contact = await ContactRepository.findById(id);
 
-    if (contact) {
-      return response.json(contact);
+    if (!contact) {
+      return response.status(404).json({ error: 'contact not found' });
     }
 
-    response.status(404).json({ error: 'contact not found' });
+    response.json(contact);
   }
 
   async store(request, response) {
@@ -49,6 +49,12 @@ class ContactController {
     // Update an existing contact
     const { id } = request.params;
 
+    const contact = await ContactRepository.findById(id);
+
+    if (!contact) {
+      return response.status(404).json({ error: 'contact not found' });
+    }
+
     await ContactRepository.update(id, request.body);
 
     response.sendStatus(204);
@@ -60,13 +66,13 @@ class ContactController {
 
     const contact = await ContactRepository.findById(id);
 
-    if (contact) {
-      await ContactRepository.deleteById(id);
-
-      return response.sendStatus(204);
+    if (!contact) {
+      return response.status(404).json({ error: 'contact not found' });
     }
 
-    response.status(404).json({ error: 'contact not found' });
+    await ContactRepository.deleteById(id);
+
+    return response.sendStatus(204);
   }
 }
 
