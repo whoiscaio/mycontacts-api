@@ -8,7 +8,7 @@ routes.get('/contacts', ContactController.index);
 routes.get('/contacts/:id', ContactController.show);
 routes.delete('/contacts/:id', ContactController.delete);
 
-routes.post('/contacts', () => {});
+routes.post('/contacts', ContactController.store);
 routes.put('/contacts/:id', () => {});
 
 module.exports = routes;

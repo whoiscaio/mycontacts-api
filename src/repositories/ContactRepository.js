@@ -31,6 +31,28 @@ class ContactRepository {
     });
   }
 
+  findByName(name) {
+    return new Promise((resolve) => {
+      resolve(
+        contacts.find((contact) => contact.name === name),
+      );
+    });
+  }
+
+  create(body) {
+    return new Promise((resolve) => {
+      contacts = [
+        ...contacts,
+        {
+          ...body,
+          id: uuid(),
+        },
+      ];
+
+      resolve();
+    });
+  }
+
   deleteById(id) {
     return new Promise((resolve) => {
       contacts = contacts.filter((contact) => contact.id !== id);
