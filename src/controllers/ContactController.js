@@ -4,7 +4,7 @@ class ContactController {
   async index(request, response) {
     const contactList = await ContactRepository.findAll();
 
-    response.send(contactList);
+    response.json(contactList);
   }
 
   async show(request, response) {
@@ -16,7 +16,7 @@ class ContactController {
       return response.status(404).json({ error: 'contact not found' });
     }
 
-    response.send(contact);
+    response.json(contact);
   }
 
   store() {
@@ -27,8 +27,17 @@ class ContactController {
 
   }
 
-  delete() {
+  async delete(request, response) {
+    const { id } = request.params;
 
+    const contactExists = await ContactRepository.findById(id);
+
+    if (!contactExists) {
+      return response.status(404).json({ error: 'contact not found' });
+    }
+
+    await ContactRepository.deleteById(id);
+    response.sendStatus(204);
   }
 }
 

@@ -6,7 +6,7 @@ const routes = express.Router();
 
 routes.get('/contacts', ContactController.index);
 routes.get('/contacts/:id', ContactController.show);
-routes.delete('/contacts/:id', () => {});
+routes.delete('/contacts/:id', ContactController.delete);
 
 routes.post('/contacts', () => {});
 routes.put('/contacts/:id', () => {});
