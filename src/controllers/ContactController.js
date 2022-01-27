@@ -32,8 +32,18 @@ class ContactController {
     response.sendStatus(204);
   }
 
-  update() {
+  async update(request, response) {
+    const { id } = request.params;
+    const { body } = request;
 
+    const contactExists = ContactRepository.findById(id);
+
+    if (!contactExists) {
+      return response.status(404).json({ error: 'contact not found' });
+    }
+
+    await ContactRepository.update(id, body);
+    response.sendStatus(204);
   }
 
   async delete(request, response) {
