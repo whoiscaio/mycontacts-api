@@ -5,7 +5,7 @@ const ContactController = require('./controllers/ContactController');
 const routes = express.Router();
 
 routes.get('/contacts', ContactController.index);
-routes.get('/contacts/:id', () => {});
+routes.get('/contacts/:id', ContactController.show);
 routes.delete('/contacts/:id', () => {});
 
 routes.post('/contacts', () => {});
