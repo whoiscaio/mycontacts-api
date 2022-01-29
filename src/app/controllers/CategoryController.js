@@ -10,13 +10,13 @@ class CategoryController {
   async show(request, response) {
     const { id } = request.params;
 
-    const contact = await CategoryRepository.findById(id);
+    const category = await CategoryRepository.findById(id);
 
-    if (!contact) {
-      response.status(400).json({ error: 'contact not found' });
+    if (!category) {
+      response.status(400).json({ error: 'category not found' });
     }
 
-    response.json(contact);
+    response.json(category);
   }
 
   async store(request, response) {

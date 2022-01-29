@@ -31,6 +31,7 @@ class CategoryRepository {
     const [row] = await db.query(`
       INSERT INTO categories (name)
       VALUES ($1)
+      RETURNING *
     `, [name]);
 
     return row;
