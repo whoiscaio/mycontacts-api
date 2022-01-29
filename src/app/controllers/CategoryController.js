@@ -11,8 +11,17 @@ class CategoryController {
     response.send('ok - show');
   }
 
-  store(request, response) {
-    response.send('ok - store');
+  async store(request, response) {
+    const { name } = request.body;
+
+    const categoryExists = await CategoryRepository.findByName(name);
+
+    if (categoryExists) {
+      return response.status(400).json({ error: 'taken', taken: 'name' });
+    }
+
+    const newCategory = await CategoryRepository.create({ name });
+    response.json(newCategory);
   }
 
   update(request, response) {
