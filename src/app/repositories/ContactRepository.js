@@ -27,7 +27,7 @@ class ContactRepository {
   }
 
   async findById(id) {
-    const row = await db.query(`
+    const [row] = await db.query(`
       SELECT * FROM contacts WHERE id=$1
     `, [id]);
 
@@ -35,7 +35,7 @@ class ContactRepository {
   }
 
   async findByName(name) {
-    const row = await db.query(`
+    const [row] = await db.query(`
       SELECT * FROM contacts WHERE name=$1
     `, [name]);
 
@@ -43,7 +43,7 @@ class ContactRepository {
   }
 
   async findByEmail(email) {
-    const row = await db.query(`
+    const [row] = await db.query(`
       SELECT * FROM contacts WHERE email=$1
     `, [email]);
 
