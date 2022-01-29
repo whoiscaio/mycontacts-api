@@ -28,8 +28,12 @@ class CategoryController {
     response.send('ok - update');
   }
 
-  delete(request, response) {
-    response.send('ok - delete');
+  async delete(request, response) {
+    const { id } = request.params;
+
+    await CategoryRepository.deleteById(id);
+
+    response.sendStatus(204);
   }
 }
 
