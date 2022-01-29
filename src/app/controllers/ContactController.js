@@ -20,7 +20,9 @@ class ContactController {
   }
 
   async store(request, response) {
-    const { name, level } = request.body;
+    const {
+      name, email, phone, category_id,
+    } = request.body;
 
     const nameAlreadyExists = await ContactRepository.findByName(name);
 
@@ -28,8 +30,10 @@ class ContactController {
       return response.status(400).json({ error: 'taken', taken: 'name' });
     }
 
-    await ContactRepository.create({ name, level });
-    response.sendStatus(204);
+    const newContact = await ContactRepository.create({
+      name, email, phone, category_id,
+    });
+    response.json(newContact);
   }
 
   async update(request, response) {
