@@ -25,10 +25,14 @@ class ContactController {
     } = request.body;
 
     const nameAlreadyExists = await ContactRepository.findByName(name);
-    console.log(nameAlreadyExists);
+    const emailAlreadyExists = await ContactRepository.findByEmail(email);
 
     if (nameAlreadyExists.length !== 0) {
       return response.status(400).json({ error: 'taken', taken: 'name' });
+    }
+
+    if (emailAlreadyExists.length !== 0) {
+      return response.status(400).json({ error: 'taken', taken: 'email' });
     }
 
     const newContact = await ContactRepository.create({

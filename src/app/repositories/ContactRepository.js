@@ -42,6 +42,14 @@ class ContactRepository {
     return row;
   }
 
+  async findByEmail(email) {
+    const row = await db.query(`
+      SELECT * FROM contacts WHERE email=$1
+    `, [email]);
+
+    return row;
+  }
+
   async create({
     name, email, phone, category_id,
   }) {
