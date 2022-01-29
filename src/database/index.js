@@ -10,10 +10,10 @@ const client = new Client({
 
 client.connect();
 
-async function query(myQuery) {
-  const res = await client.query(myQuery);
+async function query(myQuery, values) {
+  const res = await client.query(myQuery, values);
 
   return res.rows;
 }
 
-module.exports = query;
+exports.query = query;
