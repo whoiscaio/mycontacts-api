@@ -7,8 +7,16 @@ class CategoryController {
     response.json(categories);
   }
 
-  show(request, response) {
-    response.send('ok - show');
+  async show(request, response) {
+    const { id } = request.params;
+
+    const contact = await CategoryRepository.findById(id);
+
+    if (!contact) {
+      response.status(400).json({ error: 'contact not found' });
+    }
+
+    response.json(contact);
   }
 
   async store(request, response) {
