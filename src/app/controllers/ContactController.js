@@ -12,7 +12,7 @@ class ContactController {
 
     const contact = await ContactRepository.findById(id);
 
-    if (!contact) {
+    if (contact.length === 0) {
       return response.status(404).json({ error: 'contact not found' });
     }
 
@@ -25,8 +25,9 @@ class ContactController {
     } = request.body;
 
     const nameAlreadyExists = await ContactRepository.findByName(name);
+    console.log(nameAlreadyExists);
 
-    if (nameAlreadyExists) {
+    if (nameAlreadyExists.length !== 0) {
       return response.status(400).json({ error: 'taken', taken: 'name' });
     }
 
@@ -55,12 +56,12 @@ class ContactController {
 
     const contactExists = await ContactRepository.findById(id);
 
-    if (!contactExists) {
+    if (contactExists.length === 0) {
       return response.status(404).json({ error: 'contact not found' });
     }
 
-    await ContactRepository.deleteById(id);
-    response.sendStatus(204);
+    const deletedContact = await ContactRepository.deleteById(id);
+    response.json(deletedContact);
   }
 }
 

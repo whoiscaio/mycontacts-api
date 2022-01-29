@@ -34,12 +34,12 @@ class ContactRepository {
     return row;
   }
 
-  findByName(name) {
-    return new Promise((resolve) => {
-      resolve(
-        contacts.find((contact) => contact.name === name),
-      );
-    });
+  async findByName(name) {
+    const row = await db.query(`
+      SELECT * FROM contacts WHERE name=$1
+    `, [name]);
+
+    return row;
   }
 
   async create({
@@ -70,12 +70,13 @@ class ContactRepository {
     });
   }
 
-  deleteById(id) {
-    return new Promise((resolve) => {
-      contacts = contacts.filter((contact) => contact.id !== id);
+  async deleteById(id) {
+    const row = db.query(`
+      DELETE FROM contacts WHERE id=$1
+      RETURNING *
+    `, [id]);
 
-      resolve();
-    });
+    return row;
   }
 }
 
