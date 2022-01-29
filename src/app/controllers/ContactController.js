@@ -53,8 +53,8 @@ class ContactController {
       return response.status(404).json({ error: 'contact not found' });
     }
 
-    await ContactRepository.update(id, body);
-    response.sendStatus(204);
+    const updatedContact = await ContactRepository.update(id, body);
+    response.json(updatedContact);
   }
 
   async delete(request, response) {
