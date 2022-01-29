@@ -50,23 +50,22 @@ class ContactRepository {
   async update(id, {
     name, email, phone, category_id,
   }) {
-    const [updatedContact] = await db.query(`
+    const [row] = await db.query(`
       UPDATE contacts
       SET name=$1, email=$2, phone=$3, category_id=$4
       WHERE id=$5
       RETURNING *
     `, [name, email, phone, category_id, id]);
 
-    return updatedContact;
+    return row;
   }
 
   async deleteById(id) {
-    const row = db.query(`
+    const deleteOp = db.query(`
       DELETE FROM contacts WHERE id=$1
-      RETURNING *
     `, [id]);
 
-    return row;
+    return deleteOp;
   }
 }
 
